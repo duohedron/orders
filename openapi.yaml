@@ -1,0 +1,44 @@
+openapi: 3.1.1
+info:
+    title: Orders API
+    version: 0.1.0
+paths:
+    /orders:
+        post:
+            summary: Create order
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/OrderCreate'
+            responses:
+                '201':
+                    description: Created
+    /orders/{id}:
+        get:
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      format: uuid
+            responses:
+                '200':
+                    description: OK
+    /healthz:
+        get:
+            responses:
+                '200':
+                    description: OK
+components:
+    schemas:
+        OrderCreate:
+            type: object
+            required: [items]
+            properties:
+                items:
+                    type: array
+                    items:
+                        type: object
